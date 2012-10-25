@@ -54,6 +54,7 @@ BIN_FILES-y += mkenvimage$(SFX)
 BIN_FILES-y += mkimage$(SFX)
 BIN_FILES-$(CONFIG_EXYNOS5250) += mk$(BOARD)spl$(SFX)
 BIN_FILES-$(CONFIG_MX23) += mxsboot$(SFX)
+BIN_FILES-$(CONFIG_SUNXI) += mksunxiboot$(SFX)
 BIN_FILES-$(CONFIG_MX28) += mxsboot$(SFX)
 BIN_FILES-$(CONFIG_NETCONSOLE) += ncb$(SFX)
 BIN_FILES-$(CONFIG_SHA1_CHECK_UB_IMG) += ubsha1$(SFX)
@@ -91,6 +92,7 @@ OBJ_FILES-$(CONFIG_EXYNOS5250) += mkexynosspl.o
 OBJ_FILES-$(CONFIG_KIRKWOOD) += kwboot.o
 OBJ_FILES-$(CONFIG_LCD_LOGO) += bmp_logo.o
 OBJ_FILES-$(CONFIG_MX23) += mxsboot.o
+OBJ_FILES-$(CONFIG_SUNXI) += mksunxiboot.o
 OBJ_FILES-$(CONFIG_MX28) += mxsboot.o
 OBJ_FILES-$(CONFIG_NETCONSOLE) += ncb.o
 OBJ_FILES-$(CONFIG_SHA1_CHECK_UB_IMG) += ubsha1.o
@@ -232,6 +234,10 @@ $(obj)mk$(BOARD)spl$(SFX):	$(obj)mkexynosspl.o
 	$(HOSTSTRIP) $@
 
 $(obj)mpc86x_clk$(SFX):	$(obj)mpc86x_clk.o
+	$(HOSTCC) $(HOSTCFLAGS) $(HOSTLDFLAGS) -o $@ $^
+	$(HOSTSTRIP) $@
+
+$(obj)mksunxiboot$(SFX):	$(obj)mksunxiboot.o
 	$(HOSTCC) $(HOSTCFLAGS) $(HOSTLDFLAGS) -o $@ $^
 	$(HOSTSTRIP) $@
 
