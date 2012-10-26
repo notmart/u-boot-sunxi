@@ -162,11 +162,21 @@ ifdef CONFIG_SAMSUNG
 ALL-y	+= $(obj)$(BOARD)-spl.bin
 endif
 
+ifdef CONFIG_SUNXI
+ALL-y	+= $(obj)sunxi-spl.bin
+endif
+
 all:	$(ALL-y)
 
 ifdef CONFIG_SAMSUNG
 $(obj)$(BOARD)-spl.bin: $(obj)u-boot-spl.bin
 	$(OBJTREE)/tools/mk$(BOARD)spl $< $@
+endif
+
+ifdef CONFIG_SUNXI
+$(obj)sunxi-spl.bin: $(obj)u-boot-spl.bin
+	$(OBJTREE)/tools/mksunxiboot \
+		$(obj)u-boot-spl.bin $(obj)sunxi-spl.bin
 endif
 
 $(obj)$(SPL_BIN).bin:	$(obj)$(SPL_BIN)
