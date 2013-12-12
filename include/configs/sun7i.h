@@ -190,21 +190,20 @@
 	"bootdelay=3\0" \
 	"bootcmd=run setargs_nand boot_normal\0" \
 	"console=ttyS0,115200\0" \
-	"nand_root=/dev/system\0" \
-	"mmc_root=/dev/mmcblk0p7\0" \
-	"init=/init\0" \
+	"nand_root=/dev/nandd\0" \
+	"mmc_root=/dev/mmcblk0p2\0" \
+	"init=/sbin/init\0" \
 	"loglevel=8\0" \
-	"setargs_nand=setenv bootargs console=${console} root=${nand_root}" \
-	" init=${init} loglevel=${loglevel} partitions=${partitions}\0" \
+	"setargs_nand=setenv machid 0x010bb; setenv bootargs console=${console} root=${nand_root}" \
+	" init=${init} loglevel=${loglevel} partitions=${partitions} hdmi.audio=EDID:0 rootwait panic=10\0" \
 	"setargs_mmc=setenv bootargs console=${console} root=${mmc_root}" \
-	" init=${init} loglevel=${loglevel} partitions=${partitions}\0" \
-	"boot_normal=sunxi_flash read 40007800 boot;boota 40007800\0" \
-	"boot_recovery=sunxi_flash read 40007800 recovery;boota 40007800\0" \
-	"boot_fastboot=fastboot\0"
+	" init=${init} loglevel=${loglevel} partitions=${partitions} hdmi.audio=EDID:0 rootwait panic=10\0" \
+	"boot_normal=fatload nand 0 0x43000000 script.bin; fatload nand 0 0x48000000 uImage; bootm 0x48000000\0" \
+	"boot_recovery=fatload nand 0 0x43000000 script.bin; fatload nand 0 0x48000000 uImage; bootm 0x48000000\0"
 
 
-#define CONFIG_BOOTDELAY	1
-#define CONFIG_BOOTCOMMAND	"nand read 50000000 boot;boota 50000000"
+#define CONFIG_BOOTDELAY	10
+//#define CONFIG_BOOTCOMMAND	"setenv 0x010bb; setenv bootargs root=/dev/nandd console=ttyS0,115200 hdmi.audio=EDID:0 rootwait panic=10 disp.screen0_output_mode=EDID:1280x720p60;fatload nand 0 0x43000000 script.bin; fatload nand 0 0x48000000 uImage; bootm 0x48000000\0"
 #define CONFIG_SYS_BOOT_GET_CMDLINE
 #define CONFIG_AUTO_COMPLETE
 
