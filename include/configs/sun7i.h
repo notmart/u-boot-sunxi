@@ -190,7 +190,7 @@
 	"bootdelay=3\0" \
 	"bootcmd=run setargs_nand boot_normal\0" \
 	"console=ttyS0,115200\0" \
-	"nand_root=/dev/nandd\0" \
+	"nand_root=/dev/nandb\0" \
 	"mmc_root=/dev/mmcblk0p2\0" \
 	"init=/sbin/init\0" \
 	"loglevel=8\0" \
@@ -203,7 +203,7 @@
 
 
 #define CONFIG_BOOTDELAY	10
-//#define CONFIG_BOOTCOMMAND	"setenv 0x010bb; setenv bootargs root=/dev/nandd console=ttyS0,115200 hdmi.audio=EDID:0 rootwait panic=10 disp.screen0_output_mode=EDID:1280x720p60;fatload nand 0 0x43000000 script.bin; fatload nand 0 0x48000000 uImage; bootm 0x48000000\0"
+//#define CONFIG_BOOTCOMMAND	"setenv 0x010bb; setenv bootargs root=/dev/nandb console=ttyS0,115200 hdmi.audio=EDID:0 rootwait panic=10 disp.screen0_output_mode=EDID:1280x720p60;fatload nand 0 0x43000000 script.bin; fatload nand 0 0x48000000 uImage; bootm 0x48000000\0"
 #define CONFIG_SYS_BOOT_GET_CMDLINE
 #define CONFIG_AUTO_COMPLETE
 
